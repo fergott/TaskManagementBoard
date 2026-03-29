@@ -3,66 +3,43 @@
 #include <string.h>
 #include "define.h"
 
+List *board;
+
 int main()
 {
-    List *board;
-    List *list1 = malloc(sizeof(List));
-    strcpy(list1->name, "Abey:");
+    board = defined_board();
+    while (1)
+    {
+        int nC;
+        printWelcome();
+        scanf("%d", &nC);
 
-    list1->next = NULL;
+        switch (nC)
+        {
+        case 1:
+            display_board(board);
+            break;
+        case 2:
+            // Add list functionality
+            break;
+        case 3:
+            // Edit list functionality
+            break;
+        case 4:
+            // Edit Board functionality
+            break;
+        case 5:
+            // Save board to a file functionality
+            break;
+        case 6:
+            // Quit functionality
+            exit(0);
+            break;
 
-    Item *item1_1 = malloc(sizeof(Item));
-    strcpy(item1_1->name, "Oculus Pro");
+        default:
+            printf("Invalid choice. Please try again.\n");
+        }
+    }
 
-    Item *item1_2 = malloc(sizeof(Item));
-    strcpy(item1_2->name, "Oculus Quest 1");
-
-    item1_2->next = NULL;
-    list1->first_item = item1_1;
-    item1_1->next = item1_2;
-
-    List *list2 = malloc(sizeof(List));
-    strcpy(list2->name, "Dante:");
-
-    list2->next = list1;
-
-    Item *item2_1 = malloc(sizeof(Item));
-    strcpy(item2_1->name, "Oculus Quest 1");
-
-    item2_1->next = NULL;
-
-    Item *item2_2 = malloc(sizeof(Item));
-    strcpy(item2_2->name, "3070 RTX");
-
-    item2_2->next = NULL;
-
-    list2->first_item = item2_1;
-    item2_1->next = item2_2;
-
-    List *list3 = malloc(sizeof(List));
-    strcpy(list3->name, "Tim:");
-
-    list3->next = list2;
-
-    Item *item3_1 = malloc(sizeof(Item));
-    strcpy(item3_1->name, "Oculus Quest 2");
-
-    list3->first_item = item3_1;
-    item3_1->next = NULL;
-
-    List *list4 = malloc(sizeof(List));
-    strcpy(list4->name, "Nick:");
-
-    Item *item4_1 = malloc(sizeof(Item));
-    strcpy(item4_1->name, "3070 RTX");
-
-    item4_1->next = NULL;
-
-    list4->first_item = item4_1;
-    list4->next = list3;
-    list1->prev = list2;
-    list2->prev = list3;
-    list3->prev = list4;
-    list4->prev = NULL;
-    board = list4;
+    return 0;
 }

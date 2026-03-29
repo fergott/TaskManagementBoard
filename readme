@@ -1,0 +1,18 @@
+
+Splitted into main.c, define.h and func.c
+
+- main.c is the main control flow of the program.
+    - Still need to modularize the option 1-6 instead of scanf and switch case inside main program.
+
+- define.h is the header file for the program.
+    - Still need to add more function prototype for the modularized functions.
+
+- func.c is the function file for the program.
+    - Still in progress of implementing the functions.
+
+
+Sun Mar 29 2026
+- Added the printWelcome() function for printing choices and asking for choice from user.
+- choice however is handled in main.c, still need to modularize the choices into separate functions.
+- used exit(0) to exit and to separate from break statement.
+- has added load_from_file() function prototype in define.h, still need to implement the function in func.c

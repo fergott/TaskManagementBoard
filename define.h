@@ -15,4 +15,12 @@ typedef struct List
     struct List *prev;
 } List;
 
+extern List *board;
+
+// func prototype
+List *defined_board();
+void display_board(List *board);
+void printWelcome();
+void load_from_file();
+
 #endif // DEFINE_H
