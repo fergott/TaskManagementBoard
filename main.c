@@ -11,8 +11,7 @@ int main()
     while (1)
     {
         int nC;
-        printWelcome();
-        scanf("%d", &nC);
+        nC = printWelcome();
 
         switch (nC)
         {
@@ -20,7 +19,7 @@ int main()
             display_board(board);
             break;
         case 2:
-            // Add list functionality
+            board = load_board_from_file();
             break;
         case 3:
             // Edit list functionality
@@ -32,7 +31,6 @@ int main()
             // Save board to a file functionality
             break;
         case 6:
-            // Quit functionality
             exit(0);
             break;
 
