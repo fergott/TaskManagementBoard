@@ -21,6 +21,8 @@ extern List *board;
 List *defined_board();                    // Function to create a predefined board
 List *load_board_from_file();             // Function to load a board from a file
 List *find_list(List *board, char *name); // Function helper to find a list by name for Task 3 and Task 4
+List *edit_item_list(List *board);        // Function to edit an item from the list
+List *edit_list(List *board);             // Function to edit a list from the board
 
 void display_board(List *board);       // Function to display the board
 void load_from_file();                 // Function to load board from a file
