@@ -7,11 +7,12 @@ List *board;
 
 int main()
 {
+    printAsciiArt();
     board = defined_board();
     while (1)
     {
         int nC;
-        nC = printWelcome();
+        nC = print_welcome();
 
         switch (nC)
         {
@@ -19,8 +20,12 @@ int main()
             display_board(board);
             break;
         case 2:
-            board = load_board_from_file();
+        {
+            List *tmp = load_board_from_file();
+            if (tmp != NULL) // only update the board if the file loading was successful
+                board = tmp;
             break;
+        }
         case 3:
             // Edit list functionality
             break;
@@ -28,7 +33,7 @@ int main()
             // Edit Board functionality
             break;
         case 5:
-            // Save board to a file functionality
+            write_board_to_file(board);
             break;
         case 6:
             exit(0);
@@ -36,6 +41,8 @@ int main()
 
         default:
             printf("Invalid choice. Please try again.\n");
+            printf("\n");
+            break;
         }
     }
 
