@@ -34,3 +34,5 @@ Wed Apr 8 2026
 - The previous func.c was further modularized into io.c, board.c and editor.c for better readability.
 - io.c will handle file input and output, board.c will handle the board display and menu as well as predefined board, and editor.c will handle the editing of the board (Task 3 and Task 4).
 - Task 3 and Task 4 will be implemented after partner's commit.
+Minor edits:
+- safeguarded the item adding when there is no list in the file, which is a file format error.

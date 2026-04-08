@@ -48,6 +48,8 @@ List *load_board_from_file() // Function to load a board from a file
         }
         else
         {
+            if (current_list == NULL)
+                continue; // If there is no current list, that is an error in file format, skip the item
             Item *new_item = malloc(sizeof(Item));
             strcpy(new_item->name, trimmed);
             new_item->next = NULL;
