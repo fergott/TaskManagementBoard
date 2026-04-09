@@ -6,7 +6,7 @@
 List *defined_board()
 {
     List *list1 = malloc(sizeof(List));
-    strcpy(list1->name, "Abey");
+    strcpy(list1->name, "Abey:");
 
     list1->next = NULL;
 
@@ -21,7 +21,7 @@ List *defined_board()
     item1_1->next = item1_2;
 
     List *list2 = malloc(sizeof(List));
-    strcpy(list2->name, "Dante");
+    strcpy(list2->name, "Dante:");
 
     list2->next = list1;
 
@@ -39,7 +39,7 @@ List *defined_board()
     item2_1->next = item2_2;
 
     List *list3 = malloc(sizeof(List));
-    strcpy(list3->name, "Tim");
+    strcpy(list3->name, "Tim:");
 
     list3->next = list2;
 
@@ -50,7 +50,7 @@ List *defined_board()
     item3_1->next = NULL;
 
     List *list4 = malloc(sizeof(List));
-    strcpy(list4->name, "Nick");
+    strcpy(list4->name, "Nick:");
 
     Item *item4_1 = malloc(sizeof(Item));
     strcpy(item4_1->name, "3070 RTX");
@@ -165,7 +165,7 @@ void editList(List *list)
     List *found = find_list(list, editName);
     if (found == NULL)
     {
-        printf("\ncant find list try again cunt\n");
+        printf("\ncant find list try again\n");
         printf("%s \n", editName);
         printf("%s \n", list->name);
     }
@@ -265,37 +265,28 @@ void editList(List *list)
 }
 void editBoard(List *list) {
     int option =0;
-    char editName[MAX];
-
-    scanf("%i", &option);
     printEditOptionsList();
+    scanf("%i", &option);
+    getchar();
 
-    List *found = find_list(list, editName);
-    if (found == NULL)
-    {
-        printf("\ncant find list try again cunt\n");
-        printf("%s \n", editName);
-        printf("%s \n", list->name);
-    }
+
+
     switch (option) {
         case 1:
             //edit a name of the item
-
             char listToBeEdited[MAX];
             printf("Enter the name of the list to edit:");
-
-
-
-
             fgets(listToBeEdited, MAX, stdin);
             delete_newline(listToBeEdited);
-            List *list_found = find_list(found, listToBeEdited);
-
+            List *list_found = find_list(list, listToBeEdited);
             if (list_found == NULL)
             {
-                printf("No such list \n");
+                printf("\ncant find list try again\n");
+                printf("%s \n", listToBeEdited);
+                printf("%s \n", list->name);
                 break;
             }
+
             else
             {
                 printf("Enter new name for the list %s:", list_found->name);
@@ -305,9 +296,9 @@ void editBoard(List *list) {
                 strcpy(list_found->name, newName);
             }
             break;
-        case 2:
-        {
+        case 2: {
             //add a new item
+
             char newList[MAX];
             printf("Enter the name of list to add");
             fgets(newList, MAX, stdin);
@@ -320,44 +311,55 @@ void editBoard(List *list) {
             }
 
             strcpy(new_list->name, newList);
-            new_list->next = found->next;
-            found->next = new_list;
+            new_list->next = list->next;
+            list->next = new_list;
             printf("List %s added\n", new_list->name);
             break;
-        case 3:
-            //delete at item
+        }
+        case 3: {
             char deleteName[MAX];
-            printf("Enter the name to delete:");
+            printf("Enter the name of the list to delete: ");
             fgets(deleteName, MAX, stdin);
             delete_newline(deleteName);
 
-            Item *current = found->first_item;
-            Item *prev = NULL;
+            // Search through sibling lists (not items)
+            List *current = list;
+            int found = 0;
 
-            while (current != NULL) {
-                if ( strcmp(current->name, deleteName) == 0)
-                {
-                    if (prev == NULL)
-                        found->first_item = current->next;
-                    else
-                        prev->next = current->next;
-                    printf("list %s deleted\n", current->name);
-                    free(current);
+            while (current->next != NULL) {
+                List *candidate = current->next;
+
+                if (strcmp(candidate->name, deleteName) == 0) {
+                    found = 1;
+
+                    // Unlink the candidate from the chain
+                    current->next = candidate->next;
+
+                    // If doubly linked, fix the back-link
+                    if (candidate->next != NULL)
+                        candidate->next->prev = current;
+
+                    // Free all items inside the list before freeing the list itself
+                    Item *item = candidate->first_item;
+                    while (item != NULL) {
+                        Item *next_item = item->next;
+                        free(item);
+                        item = next_item;
+                    }
+
+                    free(candidate);
+                    printf("List \"%s\" deleted.\n", deleteName);
                     break;
                 }
-                prev = current;
+
                 current = current->next;
-
             }
 
-            if (current == NULL)
-            {
-                printf("No such item \n");
-                break;
-            }
-
+            if (!found)
+                printf("No list named \"%s\" found.\n", deleteName);
 
             break;
+        }
 
         case 4:
             //exit
@@ -365,10 +367,9 @@ void editBoard(List *list) {
         default:
             printf("Enter a valid choice \n");
             break;
-        }
-    }
 
     }
+}
 
 
 
