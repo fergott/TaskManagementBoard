@@ -65,8 +65,8 @@ void editList(List *list)
                     break;
                     }
                     strcpy(new_item->name, newItem);
-                    new_item->next = found->first_item;  // point new item to current first
-                    found->first_item = new_item;         // make new item the first
+                    new_item->next = found->item;  // point new item to current first
+                    found->item = new_item;         // make new item the first
                     printf("Item %s added\n", new_item->name);
                 break;
             }
@@ -77,14 +77,14 @@ void editList(List *list)
                 fgets(deleteName, MAX, stdin);
                 delete_newline(deleteName);
 
-                Item *current = found->first_item;
+                Item *current = found->item;
                 Item *prev = NULL;
 
                 while (current != NULL) {
                    if ( strcmp(current->name, deleteName) == 0)
                    {
                        if (prev == NULL)
-                           found->first_item = current->next;
+                           found->item = current->next;
                        else
                            prev->next = current->next;
                        printf("Item %s deleted\n", current->name);
@@ -133,13 +133,13 @@ void editBoard(List *list) {
             if (list_found == NULL)
             {
                 printf("\ncant find list try again\n");
-                printf("%s \n", listToBeEdited);
-                printf("%s \n", list->name);
+
                 break;
             }
 
             else
             {
+                printf("IMPORTANT\n make sure to include : in the end");
                 printf("Enter new name for the list %s:", list_found->name);
                 char newName[MAX];
                 fgets(newName, MAX,stdin);
@@ -151,6 +151,7 @@ void editBoard(List *list) {
             //add a new item
 
             char newList[MAX];
+            printf("IMPORTANT\n make sure to include : in the end");
             printf("Enter the name of list to add");
             fgets(newList, MAX, stdin);
             delete_newline(newList);
@@ -191,7 +192,7 @@ void editBoard(List *list) {
                         candidate->next->prev = current;
 
                     // Free all items inside the list before freeing the list itself
-                    Item *item = candidate->first_item;
+                    Item *item = candidate->item;
                     while (item != NULL) {
                         Item *next_item = item->next;
                         free(item);

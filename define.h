@@ -40,5 +40,6 @@ void edit_list(List *list);
 int print_welcome();  // Function to print the welcome message and get user input
 void printAsciiArt(); // Function to print ASCII art
 void printEditOptionsList(); //print edit optioin for list
+void printEditOptions();
 
 #endif // DEFINE_H

@@ -85,7 +85,7 @@ List *find_list(List *board, char *name) // helper function to find a list by na
 
 Item *find_item(List *list, char *name)
 {
-    Item *current = list->first_item;
+    Item *current = list->item;
     while (current != NULL)
     {
         if (strcmp(current->name, name) == 0)
@@ -158,6 +158,16 @@ void printEditOptionsList()
     printf("1. Edit an list\n");
     printf("2. Add a new list\n");
     printf("3. Delete a list\n");
+    printf("4. Return to main menu\n");
+    printf("Enter your choice(1-4):");
+}
+
+void printEditOptions()
+{
+    printf("Options:\n");
+    printf("1. Edit an item\n");
+    printf("2. Add a new item\n");
+    printf("3. Delete an item\n");
     printf("4. Return to main menu\n");
     printf("Enter your choice(1-4):");
 }
