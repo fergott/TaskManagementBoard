@@ -20,13 +20,15 @@ int main()
             display_board(board);
             break;
         case 2:
-            // Add list functionality
+            //load board from a file
             break;
         case 3:
             // Edit list functionality
+                editList(board);
             break;
         case 4:
             // Edit Board functionality
+                editBoard(board);
             break;
         case 5:
             // Save board to a file functionality
@@ -34,7 +36,7 @@ int main()
         case 6:
             // Quit functionality
             exit(0);
-            break;
+
 
         default:
             printf("Invalid choice. Please try again.\n");

@@ -1,6 +1,6 @@
 #ifndef DEFINE_H
 #define DEFINE_H
-
+#define MAX 100
 typedef struct Item
 {
     char name[255];
@@ -22,5 +22,7 @@ List *defined_board();
 void display_board(List *board);
 void printWelcome();
 void load_from_file();
-
+void editList(List *list);
+void delete_newline(char *str);
+void editBoard(List *board);
 #endif // DEFINE_H
