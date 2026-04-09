@@ -121,6 +121,25 @@ int print_welcome()
     return nC;
 }
 
+void printEditOptions()
+{
+    printf("Options:\n");
+    printf("1. Edit an item\n");
+    printf("2. Add a new item\n");
+    printf("3. Delete an item\n");
+    printf("4. Return to main menu\n");
+    printf("Enter your choice(1-4):");
+}
+void printEditOptionsList()
+{
+    printf("Options:\n");
+    printf("1. Edit an list\n");
+    printf("2. Add a new list\n");
+    printf("3. Delete a list\n");
+    printf("4. Return to main menu\n");
+    printf("Enter your choice(1-4):");
+}
+
 void printAsciiArt() // ascii art printing
 {
     printf("##    ##  ########  ##     ##  #######  ########\n");

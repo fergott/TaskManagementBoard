@@ -1,10 +1,13 @@
-Vick:
-    5070 RTX
-Karr:
-    VR Quest 4
-Vicent:
-    Qculus Quest 3
-    5070 RTX
-Yehor:
-    Legion Pro
-    Oculus Quest 4
+Nick:
+    5080 RTX
+    3070 RTX
+John
+    5090RTX + GTX
+Tim:
+    Oculus Quest 2
+Dante:
+    Oculus Quest 1
+    3070 RTX
+Abey:
+    Oculus Pro
+    Oculus Quest 1
