@@ -12,7 +12,6 @@ List *defined_board() // Function to create a predefined board
 
     Item *item1_1 = malloc(sizeof(Item));
     strcpy(item1_1->name, "Oculus Pro");
-
     Item *item1_2 = malloc(sizeof(Item));
     strcpy(item1_2->name, "Oculus Quest 1");
 
@@ -83,6 +82,20 @@ List *find_list(List *board, char *name) // helper function to find a list by na
     return NULL;
 }
 
+
+Item *find_item(List *list, char *name)
+{
+    Item *current = list->first_item;
+    while (current != NULL)
+    {
+        if (strcmp(current->name, name) == 0)
+            return current;
+        current = current->next;
+    }
+    return NULL;
+}
+
+
 void display_board(List *board) // Function to display the board
 {
     List *current_list = board;
@@ -137,4 +150,14 @@ void printAsciiArt() // ascii art printing
     printf("    ####      ##   ##       ##  ##     \n");
     printf("     ##    ######   #####  ##    ##    \n");
     printf("\n");
+}
+
+void printEditOptionsList()
+{
+    printf("Options:\n");
+    printf("1. Edit an list\n");
+    printf("2. Add a new list\n");
+    printf("3. Delete a list\n");
+    printf("4. Return to main menu\n");
+    printf("Enter your choice(1-4):");
 }

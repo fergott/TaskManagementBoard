@@ -101,3 +101,5 @@ void write_board_to_file(List *board)
     }
     fclose(file);
 }
+
+

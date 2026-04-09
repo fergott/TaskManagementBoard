@@ -28,9 +28,11 @@ int main()
         }
         case 3:
             // Edit list functionality
+                edit_list(board);
             break;
         case 4:
             // Edit Board functionality
+                edit_list(board);
             break;
         case 5:
             write_board_to_file(board);
