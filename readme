@@ -1,0 +1,38 @@
+
+Splitted into main.c, define.h and func.c
+
+- main.c is the main control flow of the program.
+    - Still need to modularize the option 1-6 instead of scanf and switch case inside main program.
+
+- define.h is the header file for the program.
+    - Still need to add more function prototype for the modularized functions.
+
+- func.c is the function file for the program.
+    - Still in progress of implementing the functions.
+
+
+Sun Mar 29 2026
+- Added the print_welcome() function for printing choices and asking for choice from user.
+- choice however is handled in main.c, still need to modularize the choices into separate functions.
+- used exit(0) to exit and to separate from break statement.
+- has added load_from_file() function prototype in define.h, still need to implement the function in func.c
+
+Mon Apr 6 2026
+- Implemented the load_from_file() function in func.c to read the board from a file
+- The function reads the file line by line, creates lists and items, and links them together to form the board structure.
+- The function returns the head of the board linked list.
+- Also added the find_list() function prototype in define.h and already implemented in func.c, which is a helper function to find a list by name for Task 3 and Task 4.
+- Task3 and Task4 are still in progress.
+
+Wed Apr 8 2026
+- Implemented the write_board_to_file() function for task5 in func.c to write the current board state to an output file.
+- This function is similar to the load_from_file() in terms of code flow but instead writes the current board structure to a file in the same format as the input file.
+- Trimming the leading spaces in the input file is added to the load_from_file() function to not have issue with displaying the board and output file format.
+- In print_welcome(), scanf() flushing is added to handle non-integer input and to avoid infinite loop and defaults to -1.
+- tmp variable is added in main.c to avoid updating if the file loading failed.
+- Ascii art function is implemented and added to main.c
+- The previous func.c was further modularized into io.c, board.c and editor.c for better readability.
+- io.c will handle file input and output, board.c will handle the board display and menu as well as predefined board, and editor.c will handle the editing of the board (Task 3 and Task 4).
+- Task 3 and Task 4 will be implemented after partner's commit.
+Minor edits:
+- safeguarded the item adding when there is no list in the file, which is a file format error.
