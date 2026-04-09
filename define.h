@@ -5,6 +5,7 @@ typedef struct Item
 {
     char name[255];
     struct Item *next;
+    struct Item *prev;
 } Item;
 
 typedef struct List
