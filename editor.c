@@ -4,34 +4,45 @@
 #include <string.h>
 #include "define.h"
 
-void editList(List *list)
+void edit_list(List *list) // Function to edit a list
 {
+    getchar(); // flushing newline to avoid fgets skipping input
     char editName[MAX];
 
-    printf("Enter name to edit:");
-    scanf("%s", editName);
-    //  delete_newline(editName);
+    printf("Enter name of the list to edit:");
+    fgets(editName, MAX, stdin);
+    delete_newline(editName); // Remove the newline character from the input string
+    if (editName[strlen(editName) - 1] != ':')
+        strcat(editName, ":"); // Ensure the list name ends with a colon for matching
 
     List *found = find_list(list, editName);
     if (found == NULL)
     {
-        printf("\ncant find list try again cunt\n");
-        printf("%s \n", editName);
-        printf("%s \n", list->name);
+        printf("No list named \"%s\" found.\n", editName);
+        return; // Intention here is that if user don't know what list they exist, they can go back to main menu and display the board first.
+                // If we just go and try to ask the input again, they might get stuck in the loop.
     }
-    else
+    int option = 0;
+    while (option != 4) // Loop until user chooses to exit
     {
+
         char nameToBeEdited[MAX];
-        int option;
+
         printEditOptions();
-        scanf("%i", &option);
-        getchar();
+        if (scanf("%i", &option) != 1)
+        {
+            while (getchar() != '\n')
+                ;       // flush input
+            option = 0; // reset to keep looping
+            continue;
+        }
+        getchar(); // flush newline after scanf to avoid potential fgets skipping
         switch (option)
         {
         case 1:
         {
             // edit a name of the item
-            printf("Enter the name of the item to edit \n");
+            printf("Enter the name of the item to edit: ");
             fgets(nameToBeEdited, MAX, stdin);
             delete_newline(nameToBeEdited);
             Item *item_found = find_item(found, nameToBeEdited);
@@ -55,7 +66,7 @@ void editList(List *list)
         {
             // add a new item
             char newItem[MAX];
-            printf("Enter the name of list to add");
+            printf("Enter the name of list to add: ");
             fgets(newItem, MAX, stdin);
             delete_newline(newItem);
             Item *new_item = malloc(sizeof(Item));
@@ -74,7 +85,7 @@ void editList(List *list)
         {
             // delete at item
             char deleteName[MAX];
-            printf("Enter the name to delete:");
+            printf("Enter the name to delete: ");
             fgets(deleteName, MAX, stdin);
             delete_newline(deleteName);
 
@@ -107,7 +118,7 @@ void editList(List *list)
         }
         case 4:
         {
-            // exit (I believe just break should be sufficient
+            // exit back to main menu
             break;
         }
         default:
@@ -119,136 +130,122 @@ void editList(List *list)
     }
 }
 
-void editBoard(List *list)
+void edit_board(List *list) // Function to edit the board
 {
+    getchar(); // flushing newline to avoid fgets skipping input
     int option = 0;
-    char editName[MAX];
-
-    printEditOptionsList();
-    scanf("%i", &option);
-    getchar();
-
-    List *found = find_list(list, editName);
-    if (found == NULL)
+    while (option != 4)
     {
-        printf("\ncant find list try again cunt\n");
-        printf("%s \n", editName);
-        printf("%s \n", list->name);
-    }
-    switch (option)
-    {
-    case 1:
-    {
-        // edit a name of the item
-
-        char listToBeEdited[MAX];
-        printf("Enter the name of the list to edit:");
-
-        fgets(listToBeEdited, MAX, stdin);
-        delete_newline(listToBeEdited);
-        List *list_found = find_list(found, listToBeEdited);
-
-        if (list_found == NULL)
+        printEditOptionsList();
+        if (scanf("%i", &option) != 1)
         {
-            printf("No such list \n");
-            break;
+            while (getchar() != '\n')
+                ;
+            option = 0; // reset to keep looping
+            continue;
         }
-        else
-        {
-            printf("Enter new name for the list %s:", list_found->name);
-            char newName[MAX];
-            fgets(newName, MAX, stdin);
-            delete_newline(newName);
-            strcpy(list_found->name, newName);
-        }
-        break;
-    }
-    case 2:
-    {
-        // add a new item
-        char newList[MAX];
-        printf("Enter the name of list to add");
-        fgets(newList, MAX, stdin);
-        delete_newline(newList);
-        List *new_list = malloc(sizeof(List));
-        if (new_list == NULL)
-        {
-            printf("memory allocation failed\n");
-            break;
-        }
+        getchar();
 
-        strcpy(new_list->name, newList);
-        new_list->next = found->next;
-        found->next = new_list;
-        printf("List %s added\n", new_list->name);
-        break;
-    }
-    case 3:
-    {
-        // delete at item
-        char deleteName[MAX];
-        printf("Enter the name to delete:");
-        fgets(deleteName, MAX, stdin);
-        delete_newline(deleteName);
-
-        Item *current = found->item;
-        Item *prev = NULL;
-
-        while (current != NULL)
+        switch (option)
         {
-            if (strcmp(current->name, deleteName) == 0)
+        case 1:
+        {
+            // edit a name of the list
+            char listToBeEdited[MAX];
+            printf("Enter the name of the list to edit: ");
+            fgets(listToBeEdited, MAX, stdin);
+            delete_newline(listToBeEdited);
+            if (listToBeEdited[strlen(listToBeEdited) - 1] != ':')
+                strcat(listToBeEdited, ":");
+            List *list_found = find_list(list, listToBeEdited);
+            if (list_found == NULL)
             {
-                if (prev == NULL)
-                    found->item = current->next;
-                else
-                    prev->next = current->next;
-                printf("list %s deleted\n", current->name);
-                free(current);
+                printf("No list named \"%s\" found.\n", listToBeEdited);
+
                 break;
             }
-            prev = current;
-            current = current->next;
-        }
 
-        if (current == NULL)
+            else
+            {
+                printf("Enter new name for the list %s ", list_found->name);
+                char newName[MAX];
+                fgets(newName, MAX, stdin);
+                delete_newline(newName);
+                if (newName[strlen(newName) - 1] != ':')
+                    strcat(newName, ":");
+                strcpy(list_found->name, newName);
+            }
+            break;
+        }
+        case 2:
         {
-            printf("No such item \n");
+            // add a new list
+
+            char newList[MAX];
+            printf("Enter the name of list to add: ");
+            fgets(newList, MAX, stdin);
+            delete_newline(newList);
+            if (newList[strlen(newList) - 1] != ':')
+                strcat(newList, ":");
+            List *new_list = malloc(sizeof(List));
+            if (new_list == NULL)
+            {
+                printf("memory allocation failed\n");
+                break;
+            }
+
+            strcpy(new_list->name, newList);
+            new_list->next = list->next;
+            list->next = new_list;
+            printf("List %s added\n", new_list->name);
+            break;
+        }
+        case 3:
+        {
+            // delete a list
+            char deleteName[MAX];
+            printf("Enter the name of the list to delete: ");
+            fgets(deleteName, MAX, stdin);
+            delete_newline(deleteName);
+            if (deleteName[strlen(deleteName) - 1] != ':')
+                strcat(deleteName, ":");
+
+            List *target = find_list(list, deleteName);
+            if (target == NULL)
+            {
+                printf("No list named \"%s\" found.\n", deleteName);
+                break;
+            }
+
+            if (target->prev != NULL)
+                target->prev->next = target->next;
+            else
+                board = target->next;
+            if (target->next != NULL)
+                target->next->prev = target->prev;
+
+            Item *item = target->item;
+            while (item != NULL)
+            {
+                Item *tmp = item->next;
+                free(item);
+                item = tmp;
+            }
+            free(target);
+            printf("List \"%s\" deleted.\n", deleteName);
             break;
         }
 
-        break;
+        case 4:
+        {
+            // exit
+            break;
+        }
+        default:
+        {
+            printf("Enter a valid choice \n");
+            break;
+        }
+        }
     }
-
-    case 4:
-    {
-        // exit
-        break;
-    }
-    default:
-    {
-        printf("Enter a valid choice \n");
-        break;
-    }
-    }
-}
-
-void delete_newline(char *str)
-{
-    int len = strlen(str);
-    if (len > 0 && str[len - 1] == '\n')
-    {
-        str[len - 1] = '\0';
-    }
-}
-
-Item *find_item(List *list, char *name)
-{
-    Item *current = list->item;
-    while (current != NULL)
-    {
-        if (strcmp(current->name, name) == 0)
-            return current;
-        current = current->next;
-    }
-    return NULL;
 }

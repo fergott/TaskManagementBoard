@@ -69,7 +69,7 @@ List *defined_board() // Function to create a predefined board
     return list4; // Return the head of the list
 }
 
-List *find_list(List *board, char *name) // helper function to find a list by name for Task 3 and Task 4
+List *find_list(List *board, char *name) // helper function to find a list by name
 {
     List *current = board;
     while (current != NULL)
@@ -81,6 +81,27 @@ List *find_list(List *board, char *name) // helper function to find a list by na
         current = current->next;
     }
     return NULL;
+}
+
+Item *find_item(List *list, char *name) // helper function to find an item by name
+{
+    Item *current = list->item;
+    while (current != NULL)
+    {
+        if (strcmp(current->name, name) == 0)
+            return current;
+        current = current->next;
+    }
+    return NULL;
+}
+
+void delete_newline(char *str)
+{
+    int len = strlen(str);
+    if (len > 0 && str[len - 1] == '\n')
+    {
+        str[len - 1] = '\0';
+    }
 }
 
 void display_board(List *board) // Function to display the board
@@ -100,7 +121,7 @@ void display_board(List *board) // Function to display the board
     printf("\n");
 }
 
-int print_welcome()
+int print_welcome() // function to print menu and get user input
 {
     int nC;
     printf("Menu:\n");
@@ -121,7 +142,7 @@ int print_welcome()
     return nC;
 }
 
-void printEditOptions()
+void printEditOptions() // function to print edit options for list
 {
     printf("Options:\n");
     printf("1. Edit an item\n");
@@ -130,7 +151,7 @@ void printEditOptions()
     printf("4. Return to main menu\n");
     printf("Enter your choice(1-4):");
 }
-void printEditOptionsList()
+void printEditOptionsList() // function to print edit options for board
 {
     printf("Options:\n");
     printf("1. Edit an list\n");

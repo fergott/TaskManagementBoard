@@ -75,7 +75,7 @@ List *load_board_from_file() // Function to load a board from a file
 
 void write_board_to_file(List *board)
 {
-    char filename[MAX];
+    char filename[MAX]; // buffer for filename
     printf("Enter filename: ");
     scanf("%s", filename);
 
