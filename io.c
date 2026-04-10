@@ -5,7 +5,7 @@
 
 List *load_board_from_file() // Function to load a board from a file
 {
-    char filename[255]; // buffer for filename
+    char filename[MAX]; // buffer for filename
     printf("Enter filename: ");
     scanf("%s", filename);
 
@@ -18,9 +18,9 @@ List *load_board_from_file() // Function to load a board from a file
 
     List *head = NULL;         // head of the list
     List *current_list = NULL; // pointer to the current list in processing
-    char line[255];
+    char line[MAX];
 
-    while (fgets(line, 255, file))
+    while (fgets(line, MAX, file))
     {
         line[strcspn(line, "\n")] = 0; // Remove newline character
         char *trimmed = line;          // for trimming the space at custom file input **this assumes that test input file follow the format of test.txt
@@ -75,7 +75,7 @@ List *load_board_from_file() // Function to load a board from a file
 
 void write_board_to_file(List *board)
 {
-    char filename[255];
+    char filename[MAX]; // buffer for filename
     printf("Enter filename: ");
     scanf("%s", filename);
 

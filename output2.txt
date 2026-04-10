@@ -1,5 +1,5 @@
 Vick:
-    New GPU
+    5090 RTX
 Star:
 Tim:
     Oculus Quest 2

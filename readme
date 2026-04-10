@@ -36,3 +36,9 @@ Wed Apr 8 2026
 - Task 3 and Task 4 will be implemented after partner's commit.
 Minor edits:
 - safeguarded the item adding when there is no list in the file, which is a file format error.
+
+Fri Apr 10 2026
+- Merged with partner's code.
+- Polished the code and added comments for better readability as well as proper printing format.
+- Some minor fixes to tweak the behavior of the program.
+- Finalized Project 3 and ready for submission.
