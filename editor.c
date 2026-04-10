@@ -195,6 +195,10 @@ void edit_board(List *list) // Function to edit the board
             }
 
             strcpy(new_list->name, newList);
+            new_list->item = NULL;
+            new_list->prev = list;
+            if (list->next != NULL)
+                list->next->prev = new_list;
             new_list->next = list->next;
             list->next = new_list;
             printf("List %s added\n", new_list->name);
