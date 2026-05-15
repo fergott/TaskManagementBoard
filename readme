@@ -1,3 +1,16 @@
+A linked-list based task management board system that enables users to organize and track items across multiple lists. 
+Built in C, the program provides functionality to create, edit, and manage lists and items through an interactive menu interface.
+Users can persist their board state by saving to and loading from files,
+making it a lightweight alternative to web-based project management tools.
+The system employs doubly-linked lists for board organization and singly-linked lists for item management.
+
+
+
+
+
+
+Project History:
+
 
 Splitted into main.c, define.h and func.c
 
